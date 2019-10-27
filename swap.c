@@ -63,7 +63,12 @@ void swapData(int bank){
 	g_swap_bank[fnum]=swap;
 	ramp=g_pointers[swap];
 	g_pointers[swap]=0;
-	FSfseek(g_swap_fhandle,4096*fnum,SEEK_SET);
+	if (fnum==0) {
+		FSrewind(g_swap_fhandle);
+	} else {
+		fnum*=4096;
+		if (g_swap_fhandle->seek!=fnum) FSfseek(g_swap_fhandle,fnum,SEEK_SET);
+	}
 	for(i=0;i<8;i++){
 		FSfwrite(&ramp[i*512],1,512,g_swap_fhandle);
 	}
@@ -74,7 +79,12 @@ void swapData(int bank){
 	// Recall RAM from disk
 	g_swap_bank[fnum]=-1;
 	g_pointers[bank]=ramp;
-	FSfseek(g_swap_fhandle,4096*fnum,SEEK_SET);
+	if (fnum==0) {
+		FSrewind(g_swap_fhandle);
+	} else {
+		fnum*=4096;
+		if (g_swap_fhandle->seek!=fnum) FSfseek(g_swap_fhandle,fnum,SEEK_SET);
+	}
 	for(i=0;i<8;i++){
 		FSfread(&ramp[i*512],1,512,g_swap_fhandle);
 	}
