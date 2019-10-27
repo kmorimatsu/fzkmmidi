@@ -14,7 +14,6 @@
 // RAM implementation for 0x0000 - 0xdfff
 unsigned char* RAM=(unsigned char*)0xa0002000;
 
-unsigned char g_portC;
 int g_cursor;
 unsigned char g_cursorchar;
 unsigned char g_blinktimer;
@@ -30,8 +29,12 @@ unsigned char g_rom_a14;
 unsigned char g_rom_a15;
 
 void peripheral_init(void){
-	// Use rom when starting
-	g_portC=0xff;
+	// Clear latch etc
+	g_timer8=0;
+	g_timer8count=0;
+	g_ram_rom=0;
+	g_rom_a14=0;
+	g_rom_a15=0;
 	// Clear cursor
 	g_cursor=0;
 	g_cursorchar=VRAM[g_cursor];

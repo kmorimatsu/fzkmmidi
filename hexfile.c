@@ -1,3 +1,9 @@
+/*
+   This file is provided under the LGPL license ver 2.1.
+   Written by Katsumi.
+   https://github.com/kmorimatsu/
+*/
+
 #include "main.h"
 #include "usbhost/FSIO.h"
 

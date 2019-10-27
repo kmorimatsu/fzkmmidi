@@ -1,5 +1,5 @@
 /*
-   This program is provided under the LGPL license ver 2.
+   This program is provided under the LGPL license ver 2.1.
    Written by Katsumi.
    http://hp.vector.co.jp/authors/VA016157/
    kmorimatsu@users.sourceforge.jp

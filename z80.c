@@ -22,7 +22,7 @@
 
 volatile unsigned int g_timer1;
 
-/*static*/ UINT16 z80PC;
+static UINT16 z80PC;
 static UINT16 z80SP;
 static UINT16 z80AF;
 static UINT16 z80BC;

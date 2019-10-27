@@ -1,5 +1,5 @@
 /*
-   This program is provided under the LGPL license ver 2.
+   This program is provided under the LGPL license ver 2.1.
    Written by Katsumi.
    http://hp.vector.co.jp/authors/VA016157/
    kmorimatsu@users.sourceforge.jp
@@ -18,7 +18,6 @@
 extern unsigned char* RAM;
 extern unsigned char* VRAM;
 extern const unsigned char monitor[];
-extern const unsigned char cpmboot[];
 #define _getCode() readMemory(regPC++)
 
 /*
@@ -37,8 +36,6 @@ void writeRAM(UINT16 addr, UINT8 data);
 /*
 	Macros
 */
-extern unsigned char g_portC;
-#define use_rom() (g_portC&0x02)
 
 /*
 	CP/M BIOS environment
