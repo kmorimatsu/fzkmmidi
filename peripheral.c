@@ -24,6 +24,7 @@ unsigned char g_cpmkeybuffwrite;
 unsigned char g_cpmkeybuffread;
 
 unsigned char g_timer8;
+unsigned short g_timer8count;
 unsigned char g_ram_rom;
 unsigned char g_rom_a14;
 unsigned char g_rom_a15;
@@ -74,6 +75,10 @@ UINT8 readIO(UINT8 addrL, UINT8 addrH){
 				}
 			case 0x02:
 			case 0x03:
+				if (g_timer8count) {
+					g_timer8count--;
+					g_timer8=g_timer8 ? 0:1;
+				}
 				return 0x06|(cpm_const() ? 1:0)|(g_timer8 ? 8:0);
 			default:
 				break;
@@ -369,7 +374,9 @@ void __ISR(_CORE_SOFTWARE_0_VECTOR,IPL3SOFT) CS0Hanlder(void){
 	// and invert flag with this frequency
 	if ((int)(s_next8-coretimer())<0) {
 		s_next8+=24000000/16;
-		g_timer8=g_timer8 ? 0:1;
+		if (g_timer8count<0xffff) g_timer8count++;
+	}
+	if (g_timer8count) {
 		// Interrupt
 		intZ80(0xE0);
 	}
