@@ -61,7 +61,9 @@ void ide_lseek(void){
 	point|=g_ide_registers[5]<<16;
 	point|=g_ide_registers[4]<<8;
 	point|=g_ide_registers[3];
-	FSfseek(g_ide_fhandle,512*(2+point),SEEK_SET);
+	point=512*(2+point);
+	if (g_ide_fhandle->seek==point) return;
+	FSfseek(g_ide_fhandle,point,SEEK_SET);
 }
 
 void ide_lseek_identify(void){
@@ -178,6 +180,3 @@ void ide_write(unsigned char reg, unsigned char val){
 			while(1) asm volatile("wait");
 	}
 }
-
-/*
-//*/
